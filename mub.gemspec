@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version     = Mub::VERSION
   spec.authors     = ["Zino"]
   spec.email       = ["zino@chowbus.com"]
-  spec.homepage    = "https://github.com/zinosama/mub"
+  spec.homepage    = "https://rubygems.org/gems/mub"
   spec.summary     = "Resource Templating Engine"
   spec.description = "Resource Templating Engine"
   spec.license     = "MIT"
