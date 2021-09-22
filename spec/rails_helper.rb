@@ -36,7 +36,7 @@ end
 
 RSpec.configure do |config|
   Mub.configure do |config|
-    config.fk_entities = []
+    config.fk_entities = %w(Mub::Tag)
     config.resource_types = %w(Mub::Tag)
   end
 

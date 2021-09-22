@@ -2,8 +2,15 @@ module Mub
   class Tag < ApplicationRecord
     has_many :tag_associations, dependent: :destroy
     has_many :templates, through: :tag_associations
-    validates :name, snakecase_alphanumeric: true, uniqueness: { scope: :value }
+    validates :name, uniqueness: { scope: :value }
     validates :name, :value, presence: true
+    validate :validate_underscore_snakecase_name
+
+    def self.mub_property_value_options
+      all.map do |tag|
+        PropertyValueOption.new(name: tag.name, value: tag.value)
+      end
+    end
 
     def value=(val)
       val = nil if val.blank?
@@ -11,7 +18,18 @@ module Mub
     end
 
     def serialize
-      { name.to_sym => value }
+      { name => value }
+    end
+
+    private
+
+    def validate_underscore_snakecase_name
+      regex = /\A[a-z0-9_]+\z/
+      return if name.blank?
+      return if regex.match?(name)
+      self.errors.add(
+        :name, 'must be a snakecased alphanumeric string'
+      )
     end
   end
 end

@@ -4,7 +4,23 @@ module Mub
       expect(build(:template)).to be_valid
     end
 
-    describe 'activated=' do
+    describe '#serialize' do
+      let(:tag) { build(:tag, name: 'use_case', value: 'unknown') }
+      let(:property) { build(:property, column_name: 'description', value: 'foo') }
+
+      it 'returns hash of key-value pairs including tag and properties' do
+        template = build(:template)
+        template.tags = [tag]
+        template.properties = [property]
+
+        expect(template.serialize).to match(
+          'use_case' => 'unknown',
+          'description' => 'foo'
+        )
+      end
+    end
+
+    describe '#activated=' do
       context 'when input is true' do
         context 'when already activated' do
           it 'does nothing' do

@@ -6,7 +6,7 @@ module Mub
     validates :name, :setter_method_name, :target_column, presence: true
     validates :fk_entity,
       inclusion: { in: Mub.configuration.fk_entities },
-      optional: true
+      allow_nil: true
     validates :resource_type, inclusion: { in: Mub.configuration.resource_types }
 
     def has_value_options?

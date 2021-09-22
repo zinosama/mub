@@ -14,7 +14,7 @@ module Mub
     end
 
     def serialize
-      { column_name.to_sym => value }
+      { column_name => value }
     end
   end
 end
