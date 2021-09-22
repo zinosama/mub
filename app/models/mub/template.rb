@@ -18,3 +18,8 @@ end
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
+# Indexes
+#
+#  index_mub_templates_on_activated_at            (activated_at)
+#  index_mub_templates_on_resource_type_and_name  (resource_type,name) UNIQUE
+#
