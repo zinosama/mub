@@ -1,5 +1,7 @@
 module Mub
   class TagAssociation < ApplicationRecord
+    belongs_to :template
+    belongs_to :tag
   end
 end
 

@@ -1,5 +1,22 @@
 module Mub
   class PropertySetting < ApplicationRecord
+    FK_QUERY_METHOD = :mub_property_value_options
+
+    has_many :properties
+    validates :name, :setter_method_name, :target_column, presence: true
+    validates :fk_entity,
+      inclusion: { in: Mub.configuration.fk_entities },
+      optional: true
+    validates :resource_type, inclusion: { in: Mub.configuration.resource_types }
+
+    def has_value_options?
+      fk_entity.present?
+    end
+
+    def value_options
+      raise 'No fk entity' unless has_value_options?
+      fk_entity.constantize.public_send(FK_QUERY_METHOD)
+    end
   end
 end
 

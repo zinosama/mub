@@ -1,5 +1,21 @@
 module Mub
   class Property < ApplicationRecord
+    belongs_to :template
+    belongs_to :property_setting
+    validates :allow_modify, inclusion: { in: [true, false] }
+
+    def value=(val)
+      val = nil if val.blank?
+      super(val)
+    end
+
+    def column_name
+      property_setting&.name
+    end
+
+    def serialize
+      { column_name.to_sym => value }
+    end
   end
 end
 
